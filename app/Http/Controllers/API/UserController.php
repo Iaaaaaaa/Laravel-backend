@@ -5,7 +5,7 @@ namespace App\Http\Controllers\API;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use Illuminate\Http\Request;
+
 use App\http\Requests\UserRequest;
 
 class UserController extends Controller
@@ -34,6 +34,45 @@ class UserController extends Controller
         $user = User::create($validated);
 
         return $user;
+    }
+    public function update(UserRequest $request, string $id)
+    {
+
+        $User = User::findOrFail($id);
+
+        $validated = $request->validated();
+
+        $User->name = $validated['name'];
+
+        $User->save();
+
+        return $User;
+    }
+    public function email(UserRequest $request, string $id)
+    {
+
+        $User = User::findOrFail($id);
+
+        $validated = $request->validated();
+
+        $User->email = $validated['email'];
+
+        $User->save();
+
+        return $User;
+    }
+    public function password(UserRequest $request, string $id)
+    {
+
+        $User = User::findOrFail($id);
+
+        $validated = $request->validated();
+
+        $User->password = Hash::make($validated['password']);
+
+        $User->save();
+
+        return $User;
     }
 
     /**

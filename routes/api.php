@@ -27,7 +27,10 @@ use App\Http\Controllers\Api\CarouselItemsController;
     Route::controller(UserController::class)->group(function () {
         Route::get('/user',                 'index');
         Route::get('/user/{id}',            'show');
+        Route::put('/user/{id}',        'update')->name('user.update');
+        Route::put('/user/email/{id}',        'email')->name('user.email');
+        Route::put('/user/password/{id}',        'password')->name('user.password');
         Route::delete('/user/{id}',     'destroy');
-        Route::post('/user',            'store');
+        Route::post('/user',            'store')->name('user.store');
       
     });
