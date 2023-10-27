@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\CarouselItemsController;
+use App\Http\Controllers\Api\PromptController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,5 +33,14 @@ use App\Http\Controllers\Api\CarouselItemsController;
         Route::put('/user/password/{id}',        'password')->name('user.password');
         Route::delete('/user/{id}',     'destroy');
         Route::post('/user',            'store')->name('user.store');
+      
+    });
+
+    Route::controller(PromptController::class)->group(function () {
+        Route::get('/prompt',                 'index');
+        Route::get('/prompt/{id}',            'show');
+        Route::put('/prompt/{id}',        'update');
+        Route::delete('/prompt/{id}',     'destroy');
+        Route::post('/prompt',            'store');
       
     });
