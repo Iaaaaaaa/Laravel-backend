@@ -21,9 +21,8 @@ class UserRequest extends FormRequest
      */
     public function rules(): array
     {
-        if (request()->routeIs('user.store')){
+        if (request()->routeIs('user.login')){
             return [
-                'name'      => 'required|string|max:255',
                 'email'      => 'required|string|email|max:255',
                 'password'      => 'required|min:8',
             ];
@@ -41,6 +40,11 @@ class UserRequest extends FormRequest
        else if (request()->routeIs('user.password')){
         return [
             'password'      => 'required|confirmed|min:8'
+        ];
+       }
+       else if (request()->routeIs('user.image') || request()->routeIs('profile.image'))    {
+        return [
+            'image'      => 'required|image|mimes:jpg,bmp,png|max:2048'
         ];
        }
     }
