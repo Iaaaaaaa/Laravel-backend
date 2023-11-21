@@ -12,10 +12,26 @@ class PromptController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        {
+            $prompt = Prompt::select('users.name', 'prompts.prompt', 'prompts.sender','prompts.created_at', 'prompts.prompt_id', 'prompts.user_id')
+                                    ->join('users', 'prompts.user_id', '=', 'users.id');
+    
+            if ($request->keyword) {
+                $prompt->where(function ($query) use ($request) {
+                    $query->where('users.name', 'ilike', '%' . $request->keyword . '%')
+                        ->orWhere('prompts.prompt', 'ilike', '%' . $request->keyword . '%');
+                });
+            }
+    
+            return $prompt->get();
+        }
+
         return Prompt::all();
     }
+
+    
 
     /**
      * Store a newly created resource in storage.
